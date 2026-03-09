@@ -95,56 +95,57 @@ tab1, tab2, tab3, tab4 = st.tabs([
 with tab1:
     st.header("Executive Summary")
 
-    st.subheader("Dataset & Prediction Task")
+    st.subheader("Dataset and Prediction Task")
     st.write("""
-    This project analyzes patient-level data from Mexico's national COVID-19 epidemiological
-    surveillance system. The dataset captures **16 features** for each patient, including
-    demographics (age, sex, pregnancy status), whether they were hospitalized, their COVID-19
-    test result, and ten pre-existing conditions — diabetes, COPD, asthma, hypertension,
-    obesity, cardiovascular disease, chronic renal disease, immunosuppression, tobacco use,
-    and other diseases.
+    This project looks at patient-level data from Mexico's national COVID-19 surveillance
+    system. The dataset has **16 features** for each patient, covering demographics like age,
+    sex, and pregnancy status, along with hospitalization status, COVID-19 test result, and
+    ten pre-existing conditions including diabetes, COPD, asthma, hypertension, obesity,
+    cardiovascular disease, chronic renal disease, immunosuppression, tobacco use, and other
+    diseases.
 
-    The **prediction target** is `DEATH`, a binary variable indicating whether a patient
-    ultimately died (1) or survived (0). From the original ~1 million patient records, we
-    constructed a balanced sample of **10,000 patients** (5,000 who died, 5,000 who survived)
-    to ensure our models receive equal exposure to both outcomes during training.
+    The prediction target is `DEATH`, a binary variable that tells us whether a patient
+    ultimately died (1) or survived (0). The original dataset has roughly 1 million patient
+    records, but we constructed a balanced sample of **10,000 patients** (5,000 who died and
+    5,000 who survived) so that our models get equal exposure to both outcomes during training.
     """)
 
     st.subheader("Why This Problem Matters")
     st.write("""
-    During pandemic surges, hospitals face agonizing triage decisions: which patients should
-    receive scarce ICU beds, ventilators, and aggressive treatment? A reliable mortality risk
-    model — built from easily obtainable patient attributes like age, pre-existing conditions,
-    and hospitalization status — could help clinicians **identify high-risk patients earlier**
-    and allocate resources more effectively. Even small improvements in early risk
-    stratification can translate to lives saved, reduced hospital strain, and more equitable
-    care. Beyond COVID-19, the methodology demonstrated here generalizes to any disease where
-    early risk scoring from routine clinical data can inform treatment decisions.
+    During pandemic surges, hospitals have to make tough calls about which patients should get
+    scarce ICU beds, ventilators, and aggressive treatment. A reliable mortality risk model
+    built from easily obtainable patient attributes like age, pre-existing conditions, and
+    hospitalization status could help clinicians **spot high-risk patients earlier** and
+    allocate resources more effectively. Even small improvements in early risk stratification
+    can translate to lives saved and reduced hospital strain. The methodology here also applies
+    beyond COVID-19 to any disease where early risk scoring from routine clinical data can
+    guide treatment decisions.
     """)
 
-    st.subheader("Approach & Key Findings")
+    st.subheader("Approach and Key Findings")
     st.write("""
-    We trained and compared five models of increasing complexity: **Logistic Regression**
-    (baseline), **Decision Tree**, **Random Forest**, **LightGBM** (gradient boosted trees),
-    and a **Neural Network** (two-hidden-layer MLP). All tree-based models were tuned via
-    5-fold cross-validation with GridSearchCV, using F1 score as the optimization metric.
+    We trained and compared five models of increasing complexity: **Logistic Regression** as a
+    baseline, **Decision Tree**, **Random Forest**, **LightGBM** (gradient boosted trees), and
+    a **Neural Network** with two hidden layers. All tree-based models were tuned using 5-fold
+    cross-validation with GridSearchCV, and we used F1 score as the optimization metric
+    throughout.
 
-    **LightGBM** emerged as the top performer across nearly all metrics (F1, AUC-ROC, and
-    overall accuracy), closely followed by Random Forest. The Neural Network performed
-    competitively but did not surpass the gradient-boosted ensemble — a well-known pattern
-    for structured tabular data. The simple Decision Tree, while less accurate, provides
-    full transparency and may be preferable in settings where every prediction must be
-    human-interpretable.
+    **LightGBM** came out on top across nearly all metrics including F1, AUC-ROC, and overall
+    accuracy, with Random Forest close behind. The Neural Network performed reasonably well but
+    did not beat the gradient-boosted ensemble, which is not too surprising given this is a
+    relatively small tabular dataset where tree models tend to excel. The simple Decision Tree,
+    while less accurate, offers full transparency and could be a better fit in clinical settings
+    where every prediction needs to be explainable to a doctor.
 
-    SHAP analysis on the LightGBM model revealed that **hospitalization status**, **age**,
-    and **pneumonia** are the three most influential predictors of mortality — aligning with
-    established clinical knowledge. These insights are directly actionable: a triage protocol
-    that flags hospitalized patients over age 60 with pneumonia would capture the highest-risk
-    group identified by the model.
+    We also ran a SHAP analysis on the LightGBM model, which showed that **hospitalization
+    status**, **age**, and **pneumonia** are the three biggest drivers of the model's mortality
+    predictions. This lines up with what we would expect clinically. A triage protocol that
+    flags hospitalized patients over age 60 with pneumonia would capture the highest-risk group
+    the model identifies.
     """)
 
     st.divider()
-    st.write("Navigate to the other tabs for detailed visualizations, model metrics, and interactive predictions.")
+    st.write("Check out the other tabs to explore the data yourself and test predictions on custom patient profiles.")
 
 
 # ══════════════════════════════════════════════
