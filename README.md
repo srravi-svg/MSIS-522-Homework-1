@@ -8,7 +8,7 @@ This project predicts COVID-19 patient mortality using machine learning. We trai
 
 ## Live App
 
-👉 **[Deployed Streamlit App](https://your-app-url.streamlit.app)** *(update this link after deployment)*
+👉 **[Deployed Streamlit App](https://msis-522-homework-1-qptd5evss9uqb87sxpnvqg.streamlit.app/)**
 
 ## Repository Structure
 
