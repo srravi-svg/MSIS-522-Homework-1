@@ -39,11 +39,13 @@ def load_models():
     models['Decision Tree']       = joblib.load("models/decision_tree.pkl")
     models['Random Forest']       = joblib.load("models/random_forest.pkl")
     models['LightGBM']            = joblib.load("models/lightgbm.pkl")
+    # Neural Network: try loading Keras model; skip if TensorFlow unavailable
+    # (TensorFlow is too heavy for Streamlit Cloud's free tier)
     try:
         from tensorflow import keras
-        models['Neural Network']  = keras.models.load_model("models/neural_network.keras")
+        models['Neural Network'] = keras.models.load_model("models/neural_network.keras")
     except Exception:
-        pass
+        pass  # NN metrics still shown in comparison table from saved CSV
     return models
 
 @st.cache_resource
