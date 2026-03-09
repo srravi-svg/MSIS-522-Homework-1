@@ -194,8 +194,11 @@ with tab2:
     # ---- Boxplot ----
     st.subheader("Age Boxplot: Survived vs Died")
     fig, ax = plt.subplots(figsize=(5, 4))
-    sns.boxplot(data=df, x='DEATH', y='AGE', palette={0:'#2ecc71',1:'#e74c3c'}, ax=ax)
-    ax.set_xticklabels(['Survived','Died']); ax.set_title('Age by Outcome')
+    df_plot = df.copy()
+    df_plot['Outcome'] = df_plot['DEATH'].map({0: 'Survived', 1: 'Died'})
+    sns.boxplot(data=df_plot, x='Outcome', y='AGE', hue='Outcome',
+                palette={'Survived':'#2ecc71','Died':'#e74c3c'}, legend=False, ax=ax)
+    ax.set_title('Age by Outcome')
     st.pyplot(fig)
     st.write(f"""
     The median age of deceased patients ({df[df['DEATH']==1]['AGE'].median():.0f}) is 
